@@ -11,3 +11,13 @@ I used :
  
  - [SQLite](https://www.sqlite.org/)
  - [CircleCI](https://circleci.com/)
+
+
+### Installation
+ - composer install
+ - vendor/bin/doctrine orm:schema-tool:create
+
+
+### Notes
+ - I'm unsure whether I should have written the verification for the existence of fleets/vehicles in App\Query instead of Domain\Model or Domain\Specification. I am also considering moving App\Handler to Domain\Handler as I feel the way Models interact pertains to the Domain rather than the App itself.
+ - I was also unsure what the command ./fleet localize-vehicle is supposed to do: park a vehicle (set its location), or find and return its location ? As such, I went for the first interpretation.
