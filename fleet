@@ -1,0 +1,17 @@
+<?php
+
+$entityManager = require_once __DIR__.'/config/bootstrap.php';
+
+$container = new DI\Container();
+$container->set('Doctrine\ORM\EntityManager', $entityManager);
+$container->set('EntityManager', $entityManager);
+
+use Symfony\Component\Console\Application;
+
+$application = new Application();
+
+$application->add($container->get('FleetManager\App\Command\Fleet\Create'));
+$application->add($container->get('FleetManager\App\Command\Vehicle\Register'));
+$application->add($container->get('FleetManager\App\Command\Vehicle\Localize'));
+
+$application->run();

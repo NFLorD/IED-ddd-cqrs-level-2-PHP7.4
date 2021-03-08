@@ -1,0 +1,19 @@
+{
+    "require-dev": {
+        "behat/behat": "^3.8",
+        "phpunit/phpunit": "^9.5"
+    },
+    "autoload": {
+        "psr-4": {"FleetManager\\": "src/"}
+    },
+    "require": {
+        "symfony/console": "^5.2",
+        "doctrine/orm": "*",
+        "php-di/php-di": "^6.3"
+    },
+    "scripts": {
+        "test": [
+            "vendor/bin/behat"
+        ]
+    }
+}
