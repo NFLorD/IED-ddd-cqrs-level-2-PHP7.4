@@ -59,13 +59,14 @@ class Fleet
         return $this->vehicles;
     }
 
-    public function addVehicle(Vehicle $vehicle): self
+    public function addVehicle(Vehicle $vehicle): bool
     {
         if (!$this->vehicles->contains($vehicle)) {
             $this->vehicles[] = $vehicle;
+            return true;
         }
 
-        return $this;
+        return false;
     }
 
     public function removeVehicle(Vehicle $vehicle): self

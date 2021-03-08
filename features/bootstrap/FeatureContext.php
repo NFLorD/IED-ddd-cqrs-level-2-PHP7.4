@@ -2,8 +2,7 @@
 
 use Behat\Behat\Context\Context;
 use FleetManager\App\Handler\VehicleParker;
-use FleetManager\App\Query\AddVehicle;
-use FleetManager\App\Query\GetVehicle;
+use FleetManager\App\Query\Vehicle\Create;
 use FleetManager\Domain\Model\Fleet;
 use FleetManager\Domain\Model\Vehicle;
 use FleetManager\Domain\Value\Location;
@@ -42,10 +41,7 @@ class FeatureContext implements Context
      */
     public function aVehicle()
     {
-        $vehicle = new Vehicle(new Location(43.529742, 5.447427));
-        $id = (new AddVehicle)($vehicle);
-
-        $this->aVehicle = (new GetVehicle)($id);
+        $this->aVehicle = new Vehicle(new Location(43.529742, 5.447427));
     }
 
     /**
@@ -121,9 +117,8 @@ class FeatureContext implements Context
      */
     public function thisVehicleShouldBePartOfMyVehicleFleet()
     {
-        assertSame(
-            $this->myFleet->getVehicle($this->aVehicle->getId()),
-            $this->aVehicle
+        assertTrue(
+            $this->myFleet->getVehicles()->contains($this->aVehicle),
         );
     }
 
@@ -132,6 +127,9 @@ class FeatureContext implements Context
      */
     public function iTryToRegisterThisVehicleIntoMyFleet()
     {
+        # Note that this test does not really fit with Doctrine.
+        # In the spirit of TDD I didn't want to touch the test, however
+        # I had to break the fluent pattern that is usually used in Doctrine.
         $this->secondFleetInsertionResult = $this->myFleet->addVehicle($this->aVehicle);
     }
 
